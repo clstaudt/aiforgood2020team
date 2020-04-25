@@ -10,6 +10,8 @@ def earthengine2images(
     region_coords,
     enhance=True
 ):
+    ee.Initialize()
+    
     start_date, end_date = date_range
     # region geometry from coordinates
     region = ee.Geometry.Rectangle(
