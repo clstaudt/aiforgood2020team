@@ -1,6 +1,5 @@
 import ee
 import numpy
-import sklearn
 
 def earthengine2images(
     data_source,
@@ -53,5 +52,13 @@ def earthengine2images(
         img_arrays.append(img)
         
     if enhance:
-        img_arrays = [sklearn.preprocessing.normalize(img_array) for img_array in img_arrays]
+        
+        def normalize(data):
+            '''
+            Normalize the data from 0->1
+            '''
+            norm = (data-data.min())/(data.max()-data.min())
+            return norm
+        
+        img_arrays = [normalize(img_array) for img_array in img_arrays]
     return img_arrays
